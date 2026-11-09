@@ -1,0 +1,1417 @@
+version: 2.1
+
+jobs:
+  towerCam:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Create digest A
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; nproc --ignore=1; true ; } > /tmp/dd/LOT83318
+            echo "gate hu-smoke: $(wc -c </tmp/dd/LOT83318) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'LOT83318'
+  hu-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  gradient_temp_get_pipe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Walk prod through rebuild
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; seq 13 66 | awk '{print $1 * 2}' | head -n 3; true ; } > /tmp/dd/ORCHARD
+            echo "gate LAB_VERIFY_4: $(wc -c </tmp/dd/ORCHARD) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'ORCHARD'
+  LAB_VERIFY_4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  ckpt724:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Whisper remittance to the credit notes
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; sort /etc/os-release |cut -d "=" -f 2- |sort; true ; } > /tmp/dd/bearFlame
+            echo "gate INFRA-151: $(wc -c </tmp/dd/bearFlame) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'bearFlame'
+  INFRA-151:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  post_alloc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Please swap the power supply
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; cp /etc/passwd /var/tmp/pa8_2018.04.14.txt && sed --in-place 's/:x:/:*:/' /var/tmp/pa8_2018.04.14.txt && cat /var/tmp/pa8_2018.04.14.txt; true ; } > /tmp/dd/cd_alpha
+            echo "gate ruby3-vet: $(wc -c </tmp/dd/cd_alpha) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'cd_alpha'
+  ruby3-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/cd_alpha
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  owu701:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: chown8 keys
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; ls -Qp ~ | cat -n; true ; } > /tmp/dd/south_host
+            echo "gate tam-verify: $(wc -c </tmp/dd/south_host) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'south_host'
+  tam-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/south_host
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  Batch2008:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Dispatch the eval harness from cold storage
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 1 -path "*/.py" -size -2 -exec stat -c %F {} ';'; true ; } > /tmp/dd/024845_2015
+            echo "gate shippit: $(wc -c </tmp/dd/024845_2015) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '024845_2015'
+  shippit:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/024845_2015
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  f32fc5a249d5cb:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: 200 INPUT audit trail
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; echo 'v1.2.3 released' | wc -m; true ; } > /tmp/dd/debug.log.13
+            echo "gate DATA-46: $(wc -c </tmp/dd/debug.log.13) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'debug.log.13'
+  DATA-46:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/debug.log.13
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  resolveACLs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Final Call Of The Board
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; ls -i -l --full-time ~/.*rc|tr -s ' '|cut -d' ' -f5-; true ; } > /tmp/dd/debug_20200502
+            echo "gate biuld: $(wc -c </tmp/dd/debug_20200502) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'debug_20200502'
+  biuld:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/debug_20200502
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  sub76:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: MaskGoldTableStep
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; env | awk -F= '{print length($2), $1}' | sort -n | tail --lines=3; true ; } > /tmp/dd/PXL00051256
+            echo "gate europa-rev: $(wc -c </tmp/dd/PXL00051256) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'PXL00051256'
+  europa-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/PXL00051256
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  with-visible-log:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: sample the LED strip NOW
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/dusk-bee-flag" && cd "/tmp/dusk-bee-flag" && touch pear melon lemon && ls && cd - >/dev/null; true ; } > /tmp/dd/garden.log.26
+            echo "gate STAGE_DEV: $(wc -c </tmp/dd/garden.log.26) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'garden.log.26'
+  STAGE_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  TYZVPL-39484a:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: RET
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; ls /usr/lib|grep -v '^[a-m]'|tac; true ; } > /tmp/dd/md5_f3fcfbbb926
+            echo "gate quebec: $(wc -c </tmp/dd/md5_f3fcfbbb926) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'md5_f3fcfbbb926'
+  quebec:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/md5_f3fcfbbb926
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  blue-sushi:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Dilute the fume hood to cut noise
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; echo 'one, two, three' | grep -o . | sort | uniq -c | sort -rn | head -3; true ; } > /tmp/dd/f501cf11acf
+            echo "gate dec16-ship: $(wc -c </tmp/dd/f501cf11acf) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'f501cf11acf'
+  dec16-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  PulseInnerLenMisc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Create digest A
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; for item in papaya cherry lemon banana; do printf '%s\n' $item; done|sort; true ; } > /tmp/dd/memoGardenCarrierReceipt
+            echo "gate rl-3: $(wc -c </tmp/dd/memoGardenCarrierReceipt) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'memoGardenCarrierReceipt'
+  rl-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/memoGardenCarrierReceipt
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  lr1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Tidy up the fume hood
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; cat /etc/hosts >'/tmp/yearly-20180910.out' 2>&1 && wc -l '/tmp/yearly-20180910.out'; true ; } > /tmp/dd/14lN
+            echo "gate hu-verify: $(wc -c </tmp/dd/14lN) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '14lN'
+  hu-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/14lN
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  judybuilds:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Chase up the GPU pool
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; tar -cvzf "/tmp/crow.report.tgz" -C /etc nsswitch.conf hosts; true ; } > /tmp/dd/Fb
+            echo "gate ensure-staging-release-candidate: $(wc -c </tmp/dd/Fb) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'Fb'
+  ensure-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/Fb
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  stateCubeAccountToastCrimson:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: ship changelog later
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; printf 'host=web01\nport=4805\nuser=ana\ndebug=false\n' >"/var/tmp/temp_chat.tsv" && (. "/var/tmp/temp_chat.tsv" && echo "$host:$port"); true ; } > /tmp/dd/v0.12.18
+            echo "gate Ship_Service8: $(wc -c </tmp/dd/v0.12.18) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'v0.12.18'
+  Ship_Service8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/v0.12.18
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  y2x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: DIM sitemap
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nraj,athens,41\nivy,rome,93\nomar,zurich,59\nlena,lisbon,75\n' >"/tmp/site.dat" && awk -F, '{print $2","$1}' "/tmp/site.dat"; true ; } > /tmp/dd/matrix-plasma-thicket-admin
+            echo "gate cf-01: $(wc -c </tmp/dd/matrix-plasma-thicket-admin) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'matrix-plasma-thicket-admin'
+  cf-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/matrix-plasma-thicket-admin
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  VMSHACell:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: I had to hash the log files
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; for num in mango lime plum; do echo "$num" | rev;done | wc -l; true ; } > /tmp/dd/20201205_102603
+            echo "gate Prepare_Tests7: $(wc -c </tmp/dd/20201205_102603) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '20201205_102603'
+  Prepare_Tests7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  title_818:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Fall back and reconnect the wifi mesh
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; echo "greetings from linux" >"/tmp/stationkiwi.log" && cat "/tmp/stationkiwi.log"; true ; } > /tmp/dd/fnv_dc0b1f0e7021f084
+            echo "gate DeployService: $(wc -c </tmp/dd/fnv_dc0b1f0e7021f084) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'fnv_dc0b1f0e7021f084'
+  DeployService:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/fnv_dc0b1f0e7021f084
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  Tight-Stage-Schema:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: someday pull the env vars
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nbob,vienna,83\nivy,berlin,54\nchen,lima,59\nvic,lisbon,97\n' >'/tmp/temp-snake-row.csv' && cut -d, -f1,3 '/tmp/temp-snake-row.csv'; true ; } > /tmp/dd/md5_f2bd42894
+            echo "gate v6-preview: $(wc -c </tmp/dd/md5_f2bd42894) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'md5_f2bd42894'
+  v6-preview:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/md5_f2bd42894
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  dropVPNDate:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Zero hour pinning
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; env|head -n 20|awk -F'=' '{print $1}'; true ; } > /tmp/dd/wolfQueuePlasmaChrome
+            echo "gate jul26-canary: $(wc -c </tmp/dd/wolfQueuePlasmaChrome) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'wolfQueuePlasmaChrome'
+  jul26-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/wolfQueuePlasmaChrome
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  inc_sz:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Power play dismiss
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; touch -d 'tomorrow' /tmp/local_token.csv && stat -c %y /tmp/local_token.csv; true ; } > /tmp/dd/250.153.43
+            echo "gate build-quick-artifact-bundle: $(wc -c </tmp/dd/250.153.43) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '250.153.43'
+  build-quick-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/250.153.43
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  Sess663:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Dallas Partition Dedupe Keys
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; find /var/log -iname '*log*' -exec stat -c %F "{}" ';' 2>/dev/null|wc -l; true ; } > /tmp/dd/TdT
+            echo "gate b-01: $(wc -c </tmp/dd/TdT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'TdT'
+  b-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/TdT
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  iriscodes:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Reroute Firewall Rules Stage
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; env | head -n 8 | sed 's/=.*//' | tac; true ; } > /tmp/dd/v8hgk
+            echo "gate sam-push: $(wc -c </tmp/dd/v8hgk) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'v8hgk'
+  sam-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/v8hgk
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  shoot_circle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Create digest A
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; yes 'almost there' | head -n2; true ; } > /tmp/dd/204037_2015
+            echo "gate v7-nightly: $(wc -c </tmp/dd/204037_2015) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '204037_2015'
+  v7-nightly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/204037_2015
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  lc_ms:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Congratulate the support queue over SSH
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nivy,quito,75\njudy,manila,62\nyuki,berlin,99\notto,vienna,46\n' >'/dev/shm/white-page.tsv' && sed 1d '/dev/shm/white-page.tsv' | sort -t, -k2; true ; } > /tmp/dd/chunk885
+            echo "gate push-it: $(wc -c </tmp/dd/chunk885) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'chunk885'
+  push-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/chunk885
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  hotfix_hide_class:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Level VI isolating dependencies
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; pr -2 -t /etc/hosts |head -n10; true ; } > /tmp/dd/SPARK_DREAM
+            echo "gate bake-it: $(wc -c </tmp/dd/SPARK_DREAM) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'SPARK_DREAM'
+  bake-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/SPARK_DREAM
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  RIGHT_SESSION_TLS:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Dry the reagents with fresh tips
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'sunny today' | sed 's|today|backup|gI'; true ; } > /tmp/dd/filterbetapacketsweep
+            echo "gate produce-nightly-integration-tests: $(wc -c </tmp/dd/filterbetapacketsweep) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'filterbetapacketsweep'
+  produce-nightly-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  oe71:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: reconcileBatchWindowV5
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; echo 'version 2.0' | cksum; true ; } > /tmp/dd/usr-obj
+            echo "gate q1-ship: $(wc -c </tmp/dd/usr-obj) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'usr-obj'
+  q1-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/f501cf11acf
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+  MEADOW_040443:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Me captioning raw footage
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; echo x >"/tmp/common_20250801.csv" && ln -f "/tmp/common_20250801.csv" "/tmp/tree_mock_cache.bak" && stat -c %h "/tmp/common_20250801.csv"; true ; } > /tmp/dd/hollow.user.lepton
+            echo "gate chore-1562: $(wc -c </tmp/dd/hollow.user.lepton) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'hollow.user.lepton'
+  chore-1562:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Load profile
+          command: |
+            cat /tmp/dd/hollow.user.lepton
+      - run:
+          name: Checkout working tree
+          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: tar --use-compress-program=xz -xf output-release.tar.xz
+      - run:
+          command: /bin/bash -c "./task-canary"
+
+  staging-lb-18:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: task 69f
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; printf '%s\n' "new message received" | tr -d 'aeiou'; true ; } > /tmp/dd/debug_20200502
+            echo "gate biuld: $(wc -c </tmp/dd/debug_20200502) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'debug_20200502'
+  Gamma_inv:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Train the schema registry
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; ls -A ~ | sort -u | sed 's/^/- /' | wc -l; true ; } > /tmp/dd/024845_2015
+            echo "gate shippit: $(wc -c </tmp/dd/024845_2015) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '024845_2015'
+  x_offset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: IMPORT PHYSICS LAYERS
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; (( 68 > 5 )) && echo bigger || echo smaller; true ; } > /tmp/dd/south_host
+            echo "gate tam-verify: $(wc -c </tmp/dd/south_host) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'south_host'
+  wg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: So we can sleep resize the backlog
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,pear,2,60.85\n2,kiwi,18,48.57\n3,cherry,15,73.55\n4,orange,11,15.64\n' | cut -d, -f2; true ; } > /tmp/dd/v0.12.18
+            echo "gate Ship_Service8: $(wc -c </tmp/dd/v0.12.18) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'v0.12.18'
+  TEXTURE_2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: shuffle HELP
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; for k in widget pitch data chapter sync; do echo ${#k}; done; true ; } > /tmp/dd/14lN
+            echo "gate hu-verify: $(wc -c </tmp/dd/14lN) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '14lN'
+  ed-dev:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Power play smoke test
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; find ~ -maxdepth 1 -type f -name '.profile' -mtime -30 -print0 | xargs -0r wc -l | sort -n; true ; } > /tmp/dd/TdT
+            echo "gate b-01: $(wc -c </tmp/dd/TdT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'TdT'
+  ix_blend_iterate_brush:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Check the profile tab is enabled
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; dirname '/tmp/avatar-data-gamma.md'; true ; } > /tmp/dd/md5_f3fcfbbb926
+            echo "gate quebec: $(wc -c </tmp/dd/md5_f3fcfbbb926) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'md5_f3fcfbbb926'
+  TEMP_RATE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Nothing to cool
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; tar czf /tmp/ye.tgz -C /etc profile&&mkdir -p "/tmp/j"&&tar -xzf /tmp/ye.tgz -C "/tmp/j"&&ls -R "/tmp/j"; true ; } > /tmp/dd/fnv_dc0b1f0e7021f084
+            echo "gate DeployService: $(wc -c </tmp/dd/fnv_dc0b1f0e7021f084) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - 'fnv_dc0b1f0e7021f084'
+  t_Batch3:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/dd
+      - run:
+          name: Allow 25 secrets at once
+          command: |
+            mkdir -p /tmp/dd
+            { set +o pipefail 2>/dev/null; truncate -s 512 ${TMPDIR:-/tmp}/violet.log && stat -c %s ${TMPDIR:-/tmp}/violet.log; true ; } > /tmp/dd/250.153.43
+            echo "gate build-quick-artifact-bundle: $(wc -c </tmp/dd/250.153.43) bytes total"
+      - persist_to_workspace:
+          root: /tmp/dd
+          paths:
+            - '250.153.43'
+workflows:
+  verify:
+    jobs:
+      - judybuilds
+      - ensure-staging-release-candidate:
+          requires:
+            - judybuilds
+      - f32fc5a249d5cb:
+          requires:
+            - judybuilds
+      - DATA-46:
+          requires:
+            - f32fc5a249d5cb
+      - sub76:
+          requires:
+            - f32fc5a249d5cb
+      - europa-rev:
+          requires:
+            - sub76
+      - y2x:
+          requires:
+            - sub76
+      - cf-01:
+          requires:
+            - y2x
+      - post_alloc:
+          requires:
+            - y2x
+      - ruby3-vet:
+          requires:
+            - post_alloc
+      - PulseInnerLenMisc:
+          requires:
+            - post_alloc
+      - rl-3:
+          requires:
+            - PulseInnerLenMisc
+      - shoot_circle:
+          requires:
+            - PulseInnerLenMisc
+      - v7-nightly:
+          requires:
+            - shoot_circle
+      - Tight-Stage-Schema:
+          requires:
+            - shoot_circle
+      - v6-preview:
+          requires:
+            - Tight-Stage-Schema
+      - iriscodes:
+          requires:
+            - Tight-Stage-Schema
+      - sam-push:
+          requires:
+            - iriscodes
+      - dropVPNDate:
+          requires:
+            - iriscodes
+      - jul26-canary:
+          requires:
+            - dropVPNDate
+      - MEADOW_040443:
+          requires:
+            - dropVPNDate
+      - chore-1562:
+          requires:
+            - MEADOW_040443
+      - lc_ms:
+          requires:
+            - MEADOW_040443
+      - push-it:
+          requires:
+            - lc_ms
+      - hotfix_hide_class:
+          requires:
+            - lc_ms
+      - bake-it:
+          requires:
+            - hotfix_hide_class
+      - resolveACLs
+      - staging-lb-18:
+          requires:
+            - resolveACLs
+      - biuld:
+          requires:
+            - staging-lb-18
+      - Batch2008:
+          requires:
+            - staging-lb-18
+      - Gamma_inv:
+          requires:
+            - Batch2008
+      - shippit:
+          requires:
+            - Gamma_inv
+      - owu701:
+          requires:
+            - Gamma_inv
+      - x_offset:
+          requires:
+            - owu701
+      - tam-verify:
+          requires:
+            - x_offset
+      - stateCubeAccountToastCrimson:
+          requires:
+            - x_offset
+      - wg:
+          requires:
+            - stateCubeAccountToastCrimson
+      - Ship_Service8:
+          requires:
+            - wg
+      - lr1:
+          requires:
+            - wg
+      - TEXTURE_2:
+          requires:
+            - lr1
+      - hu-verify:
+          requires:
+            - TEXTURE_2
+      - Sess663:
+          requires:
+            - TEXTURE_2
+      - ed-dev:
+          requires:
+            - Sess663
+      - b-01:
+          requires:
+            - ed-dev
+      - TYZVPL-39484a:
+          requires:
+            - ed-dev
+      - ix_blend_iterate_brush:
+          requires:
+            - TYZVPL-39484a
+      - quebec:
+          requires:
+            - ix_blend_iterate_brush
+      - title_818:
+          requires:
+            - ix_blend_iterate_brush
+      - TEMP_RATE:
+          requires:
+            - title_818
+      - DeployService:
+          requires:
+            - TEMP_RATE
+      - inc_sz:
+          requires:
+            - TEMP_RATE
+      - t_Batch3:
+          requires:
+            - inc_sz
+      - build-quick-artifact-bundle:
+          requires:
+            - t_Batch3
+      - blue-sushi
+      - ckpt724
+      - dec16-ship:
+          requires:
+            - blue-sushi
+            - ckpt724
+      - INFRA-151:
+          requires:
+            - blue-sushi
+            - ckpt724
+      - STAGE_DEV:
+          requires:
+            - blue-sushi
+            - ckpt724
+      - LAB_VERIFY_4:
+          requires:
+            - blue-sushi
+            - ckpt724
+      - Prepare_Tests7:
+          requires:
+            - blue-sushi
+            - ckpt724
+      - q1-ship:
+          requires:
+            - blue-sushi
+            - ckpt724
+      - hu-smoke:
+          requires:
+            - blue-sushi
+            - ckpt724
+      - produce-nightly-integration-tests:
+          requires:
+            - blue-sushi
+            - ckpt724
